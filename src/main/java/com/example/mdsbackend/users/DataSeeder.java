@@ -14,6 +14,7 @@ public class DataSeeder implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
+        System.out.println("DataSeeder running...");
         if(!usersRepository.existsByUsername("admin")) {
             Users admin = new Users();
             admin.setName("Administrator");
