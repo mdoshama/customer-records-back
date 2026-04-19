@@ -14,8 +14,8 @@ public class CorsConfig {
         CorsConfiguration config = new CorsConfiguration();
 
         config.setAllowCredentials(true);
-        config.addAllowedOrigin("http://localhost:4200");  // ← your Angular app
-        config.addAllowedOrigin("https://mdsbespokefront.netlify.app");
+        config.addAllowedOrigin("http://localhost:4200");
+        config.addAllowedOrigin("https://mdsbespokefront.netlify.app"); // ← exact URL
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
 
