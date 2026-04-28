@@ -34,6 +34,36 @@ public class UsersService {
                 .map(u -> new UserResponse(u.getId(), u.getName(), u.getUsername(), u.getRole().name()))
                 .toList();
     }
+    public UserResponse updateUser(Long id, CreateUserRequest request) {
+        Users user = usersRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        user.setName(request.getName());
+        user.setUsername(request.getUsername());
+        user.setRole(request.getRole());
+
+        if (request.getPassword() != null && !request.getPassword().isBlank()) {
+            user.setPassword(passwordEncoder.encode(request.getPassword()));
+        }
+
+        return mapToResponse(usersRepository.save(user));
+    }
+
+    public void deleteUser(Long id) {
+        if (!usersRepository.existsById(id)) {
+            throw new RuntimeException("User not found");
+        }
+        usersRepository.deleteById(id);
+    }
+
+    private UserResponse mapToResponse(Users user) {
+        return new UserResponse(
+                user.getId(),
+                user.getName(),
+                user.getUsername(),
+                user.getRole().name()
+        );
+    }
 
 
 

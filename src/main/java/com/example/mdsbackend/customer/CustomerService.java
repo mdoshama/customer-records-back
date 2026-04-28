@@ -47,6 +47,7 @@ public class CustomerService {
 
     // ── Update ────────────────────────────────────────────────────────────────
     public CustomerResponse updateCustomer(Long id, CustomerRequest request) {
+
         CustomerEntity entity = customerRespository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Customer not found with id: " + id));
 
@@ -55,6 +56,7 @@ public class CustomerService {
                 && customerRespository.existsByPhoneNumber(request.getPhoneNumber())) {
             throw new RuntimeException("Phone number already in use: " + request.getPhoneNumber());
         }
+
 
         entity.setFirstName(request.getFirstName());
         entity.setLastName(request.getLastName());
